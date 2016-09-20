@@ -16,28 +16,30 @@ public class Game {
 
         System.out.println(gameWord);
 
-        char userGuess = promptPlayerForGuess();
+        Character userGuess = promptPlayerForGuess();
 
+        boolean b = userGuess == gameWord[0];
         for (char c : gameWord) {
             rightGuesses.add('_');
         }
 
         int counter = 0;
         while (counter < 10) {
-            for (int i = 0; i < gameWord.length; i++) {
-                if (userGuess == gameWord[i]) {
-                    rightGuesses.set(i, userGuess);
-                    System.out.println(rightGuesses);
-                    counter--;
+            if (isUserGuessPresentInGameWord(gameWord, userGuess.toString())) {
+                for (int i = 0; i < gameWord.length; i++) {
+                    if (userGuess.equals(gameWord[i])) {
+                        rightGuesses.set(i, userGuess);
+                        System.out.println(rightGuesses);
+                    }
                 }
+            } else {
+                System.out.println("sorry, wrong!");
+                counter++;
+                System.out.println(counter);
             }
             userGuess = promptPlayerForGuess();
-            counter++;
-            System.out.println(counter);
-
         }
     }
-
 
     public static int randomWord() {
         Random random = new Random(System.currentTimeMillis());
@@ -52,12 +54,20 @@ public class Game {
         return gameWord;
     }
 
-    public static char promptPlayerForGuess() {
+    public static Character promptPlayerForGuess() {
         System.out.println("Please enter your guess.");
         String userInput = scanner.nextLine();
-        char guess = userInput.charAt(0);
+        Character guess = userInput.charAt(0);
         return guess;
     }
 
-
+    public static boolean isUserGuessPresentInGameWord(char[] gameWord, String userGuess) {
+        boolean bool = false;
+        for (int i = 0; i < gameWord.length; i++) {
+            if (userGuess.charAt(0) == (gameWord[i])) {
+                bool = true;
+            }
+        }
+        return bool;
+    }
 }
