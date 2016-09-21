@@ -6,16 +6,23 @@ public class Game {
     public static Scanner scanner = new Scanner(System.in);
     public static char[] gameWord;
     public static ArrayList<Character> rightGuesses = new ArrayList<Character>();
+    public static int counter;
 
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Welcome to Hangman!");
+        Graphics.titleScreen();
         System.out.println("A random 7 letter word has been chosen for you.\nYou have 10 guesses to figure out the word.\n");
+        System.out.println(Graphics.ANSI_RED + "-----------\n" +
+                "          |\n" +
+                "          |\n" +
+                "          |\n" +
+                "          |\n" +
+                "          |\n" +
+                "          |\n" +
+                "------------------------\n" + Graphics.ANSI_RESET);
 
         gameChoosesAWord();
-
-        System.out.println(gameWord);
-
+//        System.out.println(gameWord); //TODO remove this line...
         Character userGuess = promptPlayerForGuess();
 
         boolean b = userGuess == gameWord[0];
@@ -23,19 +30,20 @@ public class Game {
             rightGuesses.add('_');
         }
 
-        int counter = 0;
         while (counter < 10) {
             if (isUserGuessPresentInGameWord(gameWord, userGuess.toString())) {
                 for (int i = 0; i < gameWord.length; i++) {
                     if (userGuess.equals(gameWord[i])) {
                         rightGuesses.set(i, userGuess);
+                        System.out.println("Correct!!");
                         System.out.println(rightGuesses);
                     }
                 }
             } else {
-                System.out.println("sorry, wrong!");
+                System.out.println("Sorry, try again!");
+                System.out.println("So far, you have guessed : ");
                 counter++;
-                System.out.println(counter);
+                Graphics.wrongAnswerGraphics();
             }
             userGuess = promptPlayerForGuess();
         }
@@ -43,14 +51,14 @@ public class Game {
 
     public static int randomWord() {
         Random random = new Random(System.currentTimeMillis());
-        int index = random.nextInt(12);
-//    int index = random.nextInt(32909);
+//        int index = random.nextInt(12);
+        int index = random.nextInt(32909);
         return index;
     }
 
-    public static char[] gameChoosesAWord() {
-        gameWord = AvailableWords.populateWordListArray().get(randomWord()).toString().toCharArray();
-//        gameWord = AvailableWords.readFileToMakeWordList().get(randomWord()).toString();
+    public static char[] gameChoosesAWord() throws Exception {
+//        gameWord = AvailableWords.populateWordListArray().get(randomWord()).toString().toCharArray();
+        gameWord = AvailableWords.readFileToMakeWordList().get(randomWord()).toString().toCharArray();
         return gameWord;
     }
 
