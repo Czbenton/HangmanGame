@@ -20,7 +20,7 @@ public class Graphics {
     }
 
     public static void startScreen() {
-        System.out.println("A random 7 letter word has been chosen for you.\nYou have 10 guesses to figure out the word.\n");
+        System.out.println("A random word has been chosen for you.\nYou have 10 guesses to figure out the word.\n");
         System.out.println(Graphics.ANSI_RED + "-----------\n" +
                 "          |\n" +
                 "          |\n" +

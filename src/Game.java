@@ -81,7 +81,11 @@ public class Game {
 
     public static void victoryConditionMet() throws Exception {
         if (!rightGuesses.contains('_')) {
-            System.out.println("YOU WIN!!");
+            System.out.println(Graphics.ANSI_BLUE + " __   _____  _   _  __      _____ _  _ _ _ \n" +
+                    " \\ \\ / / _ \\| | | | \\ \\    / /_ _| \\| | | |\n" +
+                    "  \\ V / (_) | |_| |  \\ \\/\\/ / | || .` |_|_|\n" +
+                    "   |_| \\___/ \\___/    \\_/\\_/ |___|_|\\_(_|_)\n" +
+                    "                                           \n" + Graphics.ANSI_RESET);
             Sounds.playWinGameSound();
             Thread.sleep(5000);
             System.exit(0);
@@ -89,9 +93,18 @@ public class Game {
     }
 
     public static void gameOver() throws Exception {
-        System.out.println(Graphics.ANSI_RED + "GAME OVER!!" + Graphics.ANSI_RESET);
+        System.out.println(Graphics.ANSI_RED + "   ___   _   __  __ ___    _____   _____ ___ _ _ \n" +
+                "  / __| /_\\ |  \\/  | __|  / _ \\ \\ / / __| _ \\ | |\n" +
+                " | (_ |/ _ \\| |\\/| | _|  | (_) \\ V /| _||   /_|_|\n" +
+                "  \\___/_/ \\_\\_|  |_|___|  \\___/ \\_/ |___|_|_(_|_)\n" +
+                "                                                 " +
+                "                                             " + Graphics.ANSI_RESET);
         Sounds.playLoseGameSound();
         System.out.println("The word was: " + Graphics.ANSI_BLUE + Arrays.toString(Game.gameWord) + Graphics.ANSI_RESET);
-        System.out.println("Thanks for playing.");
+        System.out.println("Thanks for playing!");
+        Thread.sleep(2500);
+        System.exit(0);
     }
+
 }
+
